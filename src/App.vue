@@ -1,19 +1,50 @@
 <template>
-  <div id="logo-container">
-    <img alt="Star Wars logo" src="https://upload.wikimedia.org/wikipedia/commons/6/6c/Star_Wars_Logo.svg">
-  </div>
-  <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+  <Nav v-bind:navItems="navItems"/>
+  <!-- <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" /> -->
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import HelloWorld from './components/HelloWorld.vue';
+// import HelloWorld from './components/HelloWorld.vue';
+import Nav from './components/Nav.vue';
+
 
 export default defineComponent({
   name: 'App',
+  data() {
+    return {
+      activeNavItem: 0,
+      navItems: [
+        {
+          id: 0,
+          label: 'planets',
+          active: true
+        },
+        {
+          id: 1,
+          label: 'characters',
+          active: false
+        },
+        {
+          id: 2,
+          label: 'vehicles',
+          active: false
+        }
+      ]
+    }
+  },
+  methods: {
+    navToggle(id: number) {
+      this.navItems[this.activeNavItem].active = false;
+      this.activeNavItem = id;
+      this.navItems[id].active = true;
+    }
+  },
   components: {
-    HelloWorld
-  }
+    // HelloWorld,
+    Nav
+  },
+  emits: ['navToggle']
 });
 </script>
 
@@ -32,10 +63,5 @@ h1, h2, h3
   color: #2c3e50
   margin-top: 60px
 
-#logo-container
-  max-width: 8em
-  margin: 1em auto
 
-img
-  max-width: 100%
 </style>
