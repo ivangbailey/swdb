@@ -6,8 +6,13 @@
   <div>
     <ul id="navigation-list">
       <li v-for="item in navItems" :key="item.id">
-        <strong v-if="item.active">{{item.label}}</strong>
-        <div @click="navToggle(item.id)" v-else>{{item.label}}</div>
+        <div v-if="item.active" class="active">
+          <strong >{{item.label}}</strong>
+        </div>
+        <div v-else @click="$emit('navToggle', item.id)">
+            {{item.label}}
+
+        </div>
       </li>
     </ul>
     <!-- {{navItems}} -->
@@ -21,15 +26,10 @@ import {defineComponent} from 'vue';
 
 export default defineComponent({
   name: 'Nav',
-  data() {
-    return {
-      active: 0
-    }
-  },
   methods: {
-    onClick(): void {
-      console.log('clicked nav item');
-    }
+    // onClick(): void {
+
+    // }
   },
   props: {
     navItems: Array
@@ -37,11 +37,19 @@ export default defineComponent({
 });
 </script>
 
-<style lang="sass">
-#logo-container
-  max-width: 8em
-  margin: 1em auto
+<style lang="sass" scoped>
+  nav
+    width: 100%
+  ul
+    list-style-type: none
+    li
+      margin: 0 .5em
+      display: inline-block
 
-img
-  max-width: 100%
+  #logo-container
+    max-width: 8em
+    margin: 1em auto
+
+  img
+    max-width: 100%
 </style>
